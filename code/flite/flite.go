@@ -35,8 +35,8 @@ func textToSpeech(path, text string) error {
 	}
 	ctext := C.CString(text)
 	cout := C.CString(path)
+	defer C.free(unsafe.Pointer(ctext))
+	defer C.free(unsafe.Pointer(cout))
 	C.flite_text_to_speech(ctext, voice, cout)
-	C.free(unsafe.Pointer(ctext))
-	C.free(unsafe.Pointer(cout))
 	return nil
 }
