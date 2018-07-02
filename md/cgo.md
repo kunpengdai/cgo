@@ -117,9 +117,7 @@ defer C.free(unsafe.Pointer(cstr))
 ```
 
 内存泄露示例：
-``` go
-
-```
+mem
 
 ## 5. 线程模型
 
