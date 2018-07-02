@@ -11,7 +11,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"unsafe"
 )
 
 func init() {
@@ -35,15 +34,18 @@ func main() {
 		}
 		memLeak(int(num))
 	}
-	
 
 }
 
 func memLeak(n int) {
 	for i := 0; i < n; i++ {
 		str := randStringRunes(100)
-		cs := C.CString(str)
-		defer C.free(unsafe.Pointer(cs))
+		// no memleak with free
+		// cs := C.CString(str)
+		// defer C.free(unsafe.Pointer(cs))
+
+		//mem leak
+		_ = C.CString(str)
 	}
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
